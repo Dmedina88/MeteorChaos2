@@ -6,13 +6,14 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Disposable;
+import com.grayherring.MeteorChaos2.objectupdaters.MoveInLine;
 import com.grayherring.MeteorChaos2.screen.GameScreen;
 import com.grayherring.MeteorChaos2.util.Constants;
 
 /**
  * Created by David on 5/16/2015.
  */
-public class MeteoriteLarge extends AbstractGameObject implements Disposable {
+public class MeteoriteLarge extends GameObject implements Disposable {
     protected TextureRegion textureRegion;
     protected  TextureAtlas textureAtlas;
 
@@ -34,8 +35,10 @@ public class MeteoriteLarge extends AbstractGameObject implements Disposable {
         terminalVelocity.set(20,20);
         acceleration.set(2,2);
         bounds.set(0,0,32,32);
-        position.set(MathUtils.random(0.0f, GameScreen.WORLD_WIDTH - (dimension.x*2)), GameScreen.WORLD_HEIGHT -1);
-        Gdx.app.log("test", "x " + position.x + "y " +position.y);
+        position.set(MathUtils.random(0.0f, GameScreen.WORLD_WIDTH - (dimension.x * 2)), GameScreen.WORLD_HEIGHT - 1);
+        Gdx.app.log("test", "x " + position.x + "y " + position.y);
+        updater = new MoveInLine(this);
+       // updater.setGameObject(this);
     }
 
     @Override
@@ -47,12 +50,11 @@ public class MeteoriteLarge extends AbstractGameObject implements Disposable {
 
     @Override
     public void update (float deltaTime) {
-        this.rotation = this.rotation +(50*deltaTime);
-        if(this.rotation >360){
-            this.rotation =0;
+
+        //do i really want to check thsi everytime?
+        if(updater!=null){
+            updater.update(deltaTime);
         }
-        velocity.y += -20*deltaTime;
-        position.y +=(velocity.y*deltaTime);
     }
 
 

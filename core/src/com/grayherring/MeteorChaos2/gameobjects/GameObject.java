@@ -8,8 +8,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.grayherring.MeteorChaos2.objectupdaters.GameObjectUpdater;
 
-public abstract class AbstractGameObject {
+public abstract class GameObject {
 
     public Vector2 position;
     public Vector2 dimension;
@@ -21,8 +22,14 @@ public abstract class AbstractGameObject {
     //public Vector2 friction;
     public Vector2 acceleration;
     public Rectangle bounds;
+    protected GameObjectUpdater updater;
 
-    public AbstractGameObject () {
+
+    public void setUpdater(GameObjectUpdater updater) {
+        this.updater = updater;
+    }
+
+    public GameObject() {
         position = new Vector2();
         dimension = new Vector2(1, 1);
         origin = new Vector2();
