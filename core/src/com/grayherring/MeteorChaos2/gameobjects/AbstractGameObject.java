@@ -35,14 +35,7 @@ public abstract class AbstractGameObject {
         bounds = new Rectangle();
     }
 
-    public void update (float deltaTime) {
-        updateMotionX(deltaTime);
-        updateMotionY(deltaTime);
 
-        // Move to new position
-        position.x += velocity.x * deltaTime;
-        position.y += velocity.y * deltaTime;
-    }
 
     protected void updateMotionX (float deltaTime) {
          /*
@@ -83,5 +76,6 @@ public abstract class AbstractGameObject {
     }
 
     public abstract void render (SpriteBatch batch);
+    public abstract void update (float deltaTime);
 
 }
