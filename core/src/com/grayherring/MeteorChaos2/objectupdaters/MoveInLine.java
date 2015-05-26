@@ -1,6 +1,8 @@
 package com.grayherring.MeteorChaos2.objectupdaters;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.grayherring.MeteorChaos2.gameobjects.GameObject;
+import com.grayherring.MeteorChaos2.screen.GameScreen;
 
 /**
  * Created by David on 5/20/2015.
@@ -12,6 +14,15 @@ public class MoveInLine extends GameObjectUpdater {
 
     @Override
     public void init() {
+        float endPoint = MathUtils.random(0.0f, GameScreen.WORLD_WIDTH -gameObject.dimension.x );
+       // (gameObject.position.y/gameObject.position.x)-();
+
+
+        gameObject.slope = MathUtils.atan2(gameObject.position.y , gameObject.position.x - endPoint);
+        //gameObject.slope =  gameObject.slope / Constants.VIEWPORT_WIDTH;
+
+        gameObject.velocity.set(endPoint-gameObject.position.x ,  gameObject.position.y).nor();
+
 
     }
 
@@ -21,7 +32,12 @@ public class MoveInLine extends GameObjectUpdater {
         if(gameObject.rotation >360){
             gameObject.rotation =0;
         }
-        gameObject.velocity.y += -20*deltaTime;
-        gameObject.position.y +=(gameObject.velocity.y*deltaTime);
+       //float  dx = MathUtils.cos(gameObject.slope * 25);
+      // float  dy = MathUtils.sin(gameObject.slope *25);
+       gameObject.position.x += gameObject.velocity.x*deltaTime *10;
+       gameObject.position.y += -gameObject.velocity.y*deltaTime *10;
+
+
+
     }
 }

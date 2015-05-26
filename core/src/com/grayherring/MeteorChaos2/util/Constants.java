@@ -21,4 +21,7 @@ public class Constants {
     // Amount of extra lives at level start
     public static final int LIVES_START = 3;
 
+    //item names
+    public static final String LARGE_METEORITE = "big";
+    public static final String BALL = "ball";
 }
