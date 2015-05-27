@@ -27,9 +27,9 @@ public class Bullet extends GameObject {
         bounds.set(0,0,32,32);
         position.set(MathUtils.random(0.0f, GameScreen.WORLD_WIDTH - (dimension.x * 2)), GameScreen.WORLD_HEIGHT - 1);
 
-        if(updater!=null){
-            updater.init();
-        }
+//        if(updater!=null){
+//            updater.init();
+//        }
     }
 
 

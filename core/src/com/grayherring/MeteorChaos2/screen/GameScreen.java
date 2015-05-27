@@ -10,7 +10,6 @@ import com.grayherring.MeteorChaos2.gameobjects.Bullet;
 import com.grayherring.MeteorChaos2.gameobjects.GameObjectFactory;
 import com.grayherring.MeteorChaos2.gameobjects.Meteorite;
 import com.grayherring.MeteorChaos2.util.Assets;
-import com.grayherring.MeteorChaos2.util.Constants;
 
 import java.util.ArrayList;
 
@@ -33,7 +32,8 @@ public class GameScreen extends AbstractScreen {
         Assets.instance.init();
         meteorite = new ArrayList();
         bullets = new ArrayList();
-        bullets.add(GameObjectFactory.CreateBullet((Constants.VIEWPORT_WIDTH/2),(Constants.VIEWPORT_HEIGHT/2)));
+        bullets.add(GameObjectFactory.CreateBullet(100,100));
+        bullets.get(0).setUpdater(null);
         bullets.add(GameObjectFactory.CreateBullet(12,12));
         for(int i = 0;i <testNum;i++){
             meteorite.add(GameObjectFactory.CreateMeteorite());

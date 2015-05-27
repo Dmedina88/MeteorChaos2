@@ -5,9 +5,9 @@ package com.grayherring.MeteorChaos2.util;
  */
 public class Constants {
 
-    public static final float VIEWPORT_WIDTH = 5.0f;
+    public static final float VIEWPORT_WIDTH = 640;
 
-    public static final float VIEWPORT_HEIGHT = 5.0f;
+    public static final float VIEWPORT_HEIGHT = 480;
 
     // GUI Width
     public static final float VIEWPORT_GUI_WIDTH = 800.0f;
