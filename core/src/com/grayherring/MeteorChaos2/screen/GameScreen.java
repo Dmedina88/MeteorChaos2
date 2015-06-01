@@ -5,9 +5,11 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.grayherring.MeteorChaos2.MeteorChaosGame;
 import com.grayherring.MeteorChaos2.gameobjects.Bullet;
+import com.grayherring.MeteorChaos2.gameobjects.GameObject;
 import com.grayherring.MeteorChaos2.gameobjects.GameObjectFactory;
 import com.grayherring.MeteorChaos2.gameobjects.Meteorite;
 import com.grayherring.MeteorChaos2.util.Assets;
@@ -22,7 +24,7 @@ public class GameScreen extends AbstractScreen {
     ArrayList<Meteorite> meteorite;
     ArrayList<Bullet> bullets;
     OrthographicCamera camera;
-    int testNum =560;
+    int testNum =20;
     private final String TAG = "GameScreen";
 
     public static final float WORLD_WIDTH =640;
@@ -35,20 +37,15 @@ public class GameScreen extends AbstractScreen {
         bullets = new ArrayList();
         bullets.add(GameObjectFactory.CreateBullet(100,100));
         bullets.get(0).setUpdater(null);
-        bullets.add(GameObjectFactory.CreateBullet(12,12));
+        bullets.add(GameObjectFactory.CreateBullet(12, 12));
         for(int i = 0;i <testNum;i++){
             meteorite.add(GameObjectFactory.CreateMeteorite());
         }
-
-
        //float aspectRatio = (float) Gdx.graphics.getHeight()/(float)Gdx.graphics.getWidth();
-
         camera = new OrthographicCamera(WORLD_WIDTH, WORLD_HEIGHT);
         camera.translate(WORLD_WIDTH / 2, WORLD_HEIGHT / 2);
         camera.update();
     }
-
-
 
     @Override
     public void render(float delta) {
@@ -62,7 +59,7 @@ public class GameScreen extends AbstractScreen {
         for(int i = 0;i <bullets.size();i++){
             bullets.get(i).update(delta);
         }
-
+        bulletMeteoriteCollision();
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
        // game.batch.draw(img, 0, 0);
@@ -95,7 +92,7 @@ public class GameScreen extends AbstractScreen {
             }
         }
         // test the adding
-        if(Gdx.input.isTouched()){
+        if(Gdx.input.justTouched()){
             for(int i = 0;i <testNum;i++){
                 Vector3 vector3 = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
                 vector3 = camera.unproject(vector3);
@@ -106,6 +103,25 @@ public class GameScreen extends AbstractScreen {
 
     }
 
+    public void bulletMeteoriteCollision(){
+        Rectangle bulletRect;
+        Rectangle meteoriteRect;
+        ArrayList<Meteorite> remove = new ArrayList();
+        for(Bullet bullet :bullets){
+             bulletRect = collisonBox(bullet);
+            for(int j =0; j<meteorite.size();j++){
+                meteoriteRect = collisonBox(meteorite.get(j));
+                if(bulletRect.overlaps(meteoriteRect)){
+                    remove.add(meteorite.get(j));
+                }
+            }
+        }
+        meteorite.remove(remove);
+    }
+
+    public Rectangle collisonBox(GameObject gameObject){
+        return  new Rectangle(gameObject.position.x,gameObject.position.y,gameObject.bounds.width,gameObject.bounds.getHeight());
+    }
 
     @Override
     public void dispose() {
