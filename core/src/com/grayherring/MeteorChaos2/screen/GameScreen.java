@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector3;
 import com.grayherring.MeteorChaos2.MeteorChaosGame;
 import com.grayherring.MeteorChaos2.gameobjects.Bullet;
 import com.grayherring.MeteorChaos2.gameobjects.GameObjectFactory;
@@ -94,9 +95,11 @@ public class GameScreen extends AbstractScreen {
             }
         }
         // test the adding
-        if(Gdx.input.justTouched()){
+        if(Gdx.input.isTouched()){
             for(int i = 0;i <testNum;i++){
-                bullets.add(GameObjectFactory.CreateBullet(Gdx.input.getX(),Gdx.input.getY()));
+                Vector3 vector3 = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
+                vector3 = camera.unproject(vector3);
+                bullets.add(GameObjectFactory.CreateBullet(vector3.x,vector3.y));
                 Gdx.app.log(TAG,""+ bullets.size());
             }
         }

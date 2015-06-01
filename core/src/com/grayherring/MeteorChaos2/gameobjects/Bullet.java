@@ -1,8 +1,6 @@
 package com.grayherring.MeteorChaos2.gameobjects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
-import com.grayherring.MeteorChaos2.screen.GameScreen;
 import com.grayherring.MeteorChaos2.util.Assets;
 
 /**
@@ -25,7 +23,7 @@ public class Bullet extends GameObject {
         terminalVelocity.set(20,20);
         acceleration.set(2,2);
         bounds.set(0,0,32,32);
-        position.set(MathUtils.random(0.0f, GameScreen.WORLD_WIDTH - (dimension.x * 2)), GameScreen.WORLD_HEIGHT - 1);
+       // position.set(MathUtils.random(0.0f, GameScreen.WORLD_WIDTH - (dimension.x * 2)), GameScreen.WORLD_HEIGHT - 1);
 
 //        if(updater!=null){
 //            updater.init();
