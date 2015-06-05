@@ -21,10 +21,10 @@ import java.util.ArrayList;
  */
 public class GameScreen extends AbstractScreen {
     Texture img;
-    ArrayList<Meteorite> meteorite;
-    ArrayList<Bullet> bullets;
-    OrthographicCamera camera;
-    int testNum =20;
+    public ArrayList<Meteorite> meteorite;
+    public ArrayList<Bullet> bullets;
+    public OrthographicCamera camera;
+    public int testNum =20;
     private final String TAG = "GameScreen";
 
     public static final float WORLD_WIDTH =640;
@@ -53,7 +53,7 @@ public class GameScreen extends AbstractScreen {
 
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        for(int i = 0;i <testNum;i++){
+        for(int i = 0;i <meteorite.size();i++){
             meteorite.get(i).update(delta);
         }
         for(int i = 0;i <bullets.size();i++){
@@ -63,7 +63,7 @@ public class GameScreen extends AbstractScreen {
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
        // game.batch.draw(img, 0, 0);
-        for(int i = 0;i <testNum;i++){
+        for(int i = 0;i <meteorite.size();i++){
             meteorite.get(i).render(game.batch);
         }
         for(int i = 0;i <bullets.size();i++){
@@ -76,29 +76,26 @@ public class GameScreen extends AbstractScreen {
     }
     public void control(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-            for(int i = 0;i <testNum;i++){
-                meteorite.get(i).init();
-            }
+            meteorite.clear();
+                for(int i = 0;i <testNum;i++){
+                    meteorite.add(GameObjectFactory.CreateMeteorite());
+                }
 
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-            for(int i = 0;i <testNum;i++){
+            for(int i = 0;i <meteorite.size();i++){
               //  Gdx.app.log("test", "" + meteorite.get(i).position.x);
             }
         }
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
-            for(int i = 0;i <testNum;i++){
                 Gdx.app.exit();
-            }
         }
         // test the adding
         if(Gdx.input.justTouched()){
-            for(int i = 0;i <testNum;i++){
                 Vector3 vector3 = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
                 vector3 = camera.unproject(vector3);
-                bullets.add(GameObjectFactory.CreateBullet(vector3.x,vector3.y));
-                Gdx.app.log(TAG,""+ bullets.size());
-            }
+                bullets.add(GameObjectFactory.CreateBullet(vector3.x, vector3.y));
+
         }
 
     }
@@ -106,17 +103,22 @@ public class GameScreen extends AbstractScreen {
     public void bulletMeteoriteCollision(){
         Rectangle bulletRect;
         Rectangle meteoriteRect;
-        ArrayList<Meteorite> remove = new ArrayList();
+        ArrayList<Meteorite> removeM = new ArrayList();
+        ArrayList<Bullet> removeB = new ArrayList();
         for(Bullet bullet :bullets){
              bulletRect = collisonBox(bullet);
             for(int j =0; j<meteorite.size();j++){
                 meteoriteRect = collisonBox(meteorite.get(j));
                 if(bulletRect.overlaps(meteoriteRect)){
-                    remove.add(meteorite.get(j));
+                    //Gdx.app.log(TAG,""+ "hit");
+                    removeM.add(meteorite.get(j));
+                    removeB.add(bullet);
                 }
             }
         }
-        meteorite.remove(remove);
+        meteorite.removeAll(removeM);
+        bullets.removeAll(removeB);
+
     }
 
     public Rectangle collisonBox(GameObject gameObject){

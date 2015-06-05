@@ -1,5 +1,7 @@
 package com.grayherring.MeteorChaos2;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.grayherring.MeteorChaos2.screen.GameScreen;
 
@@ -16,6 +18,21 @@ public class GameController  extends InputAdapter {
 
     @Override
     public boolean keyDown(int keycode) {
+        if(keycode ==Input.Keys.SPACE){
+            for(int i = 0;i <gameScreen.testNum;i++){
+                //gameScreen.meteorite.get(i).init();
+            }
+        }
+        if(keycode == Input.Keys.ENTER){
+            for(int i = 0;i <gameScreen.testNum;i++){
+                //  Gdx.app.log("test", "" + meteorite.get(i).position.x);
+            }
+        }
+        if(keycode == Input.Keys.ESCAPE){
+            for(int i = 0;i <gameScreen.testNum;i++){
+                Gdx.app.exit();
+            }
+        }
         return super.keyDown(keycode);
     }
 
