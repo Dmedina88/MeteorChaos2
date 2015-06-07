@@ -1,12 +1,11 @@
 package com.grayherring.MeteorChaos2.screen;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector3;
+import com.grayherring.MeteorChaos2.GameController;
 import com.grayherring.MeteorChaos2.MeteorChaosGame;
 import com.grayherring.MeteorChaos2.gameobjects.Bullet;
 import com.grayherring.MeteorChaos2.gameobjects.GameObject;
@@ -29,15 +28,18 @@ public class GameScreen extends AbstractScreen {
 
     public static final float WORLD_WIDTH =640;
     public static final float WORLD_HEIGHT = 480;
+    GameController gameController;
 
     public GameScreen(MeteorChaosGame game) {
         super(game);
+        gameController = new GameController(this);
         Assets.instance.init();
         meteorite = new ArrayList();
         bullets = new ArrayList();
-        bullets.add(GameObjectFactory.CreateBullet(100,100));
+        bullets.add(GameObjectFactory.CreateBullet(100, 100));
         bullets.get(0).setUpdater(null);
         bullets.add(GameObjectFactory.CreateBullet(12, 12));
+
         for(int i = 0;i <testNum;i++){
             meteorite.add(GameObjectFactory.CreateMeteorite());
         }
@@ -49,7 +51,7 @@ public class GameScreen extends AbstractScreen {
 
     @Override
     public void render(float delta) {
-        control();
+        gameController.control();
 
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -70,35 +72,13 @@ public class GameScreen extends AbstractScreen {
             bullets.get(i).render(game.batch);
         }
 
+        game.font.draw(game.batch, "1234567890-=!@#$%^&*()_+", 200, 200);
+
         game.batch.end();
 
 
     }
-    public void control(){
-        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-            meteorite.clear();
-                for(int i = 0;i <testNum;i++){
-                    meteorite.add(GameObjectFactory.CreateMeteorite());
-                }
 
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-            for(int i = 0;i <meteorite.size();i++){
-              //  Gdx.app.log("test", "" + meteorite.get(i).position.x);
-            }
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
-                Gdx.app.exit();
-        }
-        // test the adding
-        if(Gdx.input.justTouched()){
-                Vector3 vector3 = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
-                vector3 = camera.unproject(vector3);
-                bullets.add(GameObjectFactory.CreateBullet(vector3.x, vector3.y));
-
-        }
-
-    }
 
     public void bulletMeteoriteCollision(){
         Rectangle bulletRect;
@@ -131,4 +111,30 @@ public class GameScreen extends AbstractScreen {
 
         super.dispose();
     }
+
+    /*
+       public void control(){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+            meteorite.clear();
+                for(int i = 0;i <testNum;i++){
+                    meteorite.add(GameObjectFactory.CreateMeteorite());
+                }
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+            for(int i = 0;i <meteorite.size();i++){
+              //  Gdx.app.log("test", "" + meteorite.get(i).position.x);
+            }
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+                Gdx.app.exit();
+        }
+        // test the adding
+        if(Gdx.input.justTouched()){
+                Vector3 vector3 = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
+                vector3 = camera.unproject(vector3);
+                bullets.add(GameObjectFactory.CreateBullet(vector3.x, vector3.y));
+        }
+
+    }
+     */
 }

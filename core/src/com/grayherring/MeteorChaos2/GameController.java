@@ -3,6 +3,8 @@ package com.grayherring.MeteorChaos2;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.math.Vector3;
+import com.grayherring.MeteorChaos2.gameobjects.GameObjectFactory;
 import com.grayherring.MeteorChaos2.screen.GameScreen;
 
 /**
@@ -15,6 +17,35 @@ public class GameController  extends InputAdapter {
     public GameController(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
     }
+
+
+
+    public  void control(){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+            gameScreen.meteorite.clear();
+            for(int i = 0;i < gameScreen.testNum;i++){
+                gameScreen.meteorite.add(GameObjectFactory.CreateMeteorite());
+            }
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+            for(int i = 0;i < gameScreen.meteorite.size();i++){
+                //  Gdx.app.log("test", "" + meteorite.get(i).position.x);
+            }
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){
+            Gdx.app.exit();
+        }
+        // test the adding
+        if(Gdx.input.justTouched()){
+            Vector3 vector3 = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
+            vector3 = gameScreen.camera.unproject(vector3);
+            gameScreen.bullets.add(GameObjectFactory.CreateBullet(vector3.x, vector3.y));
+        }
+
+    }
+
+
+
 
     @Override
     public boolean keyDown(int keycode) {

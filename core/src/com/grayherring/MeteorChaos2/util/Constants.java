@@ -17,6 +17,8 @@ public class Constants {
 
     // Location of description file for texture atlas
     public static final String TEXTURE_ATLAS = "images/spaceShooter.atlas";
+    public static final String FONT= "font/Mecha_Bold.ttf";
+
 
     // Amount of extra lives at level start
     public static final int LIVES_START = 3;
