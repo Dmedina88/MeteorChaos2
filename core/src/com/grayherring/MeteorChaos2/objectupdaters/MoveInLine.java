@@ -11,7 +11,7 @@ public class MoveInLine extends GameObjectUpdater {
     public MoveInLine(GameObject gameObject) {
         super(gameObject);
     }
-    public static float SPEED = 50;
+    public static float SPEED = 100;
 
     @Override
     public void init() {

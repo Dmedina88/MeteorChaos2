@@ -21,6 +21,7 @@ public class Assets implements Disposable,AssetErrorListener {
 
     public AssetLargeMeteorite assetLargeMeteorite;
     public AssetBullet asetBullet;
+    public AssetCannon assetCannon;
     private Assets() {
 
     }
@@ -32,16 +33,13 @@ public class Assets implements Disposable,AssetErrorListener {
         assetManager.load(Constants.TEXTURE_ATLAS, TextureAtlas.class);
         assetManager.finishLoading();
 
-        for(String a:assetManager.getAssetNames()){
-            Gdx.app.error(TAG,"asset:" + a);
-        }
-
         TextureAtlas atlas = assetManager.get(Constants.TEXTURE_ATLAS);
 
         //textureAtlas = new TextureAtlas(Gdx.files.internal(Constants.TEXTURE_ATLAS));
         //textureRegion = new TextureRegion();
         assetLargeMeteorite = new AssetLargeMeteorite(atlas);
         asetBullet = new AssetBullet(atlas);
+        assetCannon = new AssetCannon(atlas);
     }
 
     public class AssetLargeMeteorite{
@@ -53,13 +51,16 @@ public class Assets implements Disposable,AssetErrorListener {
     }
     public class AssetBullet{
         public final TextureRegion bullet;
-
         public AssetBullet(TextureAtlas atlas) {
             bullet = atlas.findRegion(Constants.BALL);
         }
     }
-
-
+    public class AssetCannon {
+        public final TextureRegion cannon;
+        public AssetCannon(TextureAtlas atlas) {
+            cannon = atlas.findRegion(Constants.CANNON);
+        }
+    }
 
 
     @Override

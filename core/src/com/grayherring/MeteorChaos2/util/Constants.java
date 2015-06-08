@@ -26,4 +26,5 @@ public class Constants {
     //item names
     public static final String LARGE_METEORITE = "big";
     public static final String BALL = "ball";
+    public static final String CANNON ="cannon";
 }

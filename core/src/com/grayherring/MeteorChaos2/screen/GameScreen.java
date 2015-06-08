@@ -5,9 +5,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
-import com.grayherring.MeteorChaos2.GameController;
+import com.grayherring.MeteorChaos2.GameControler;
 import com.grayherring.MeteorChaos2.MeteorChaosGame;
 import com.grayherring.MeteorChaos2.gameobjects.Bullet;
+import com.grayherring.MeteorChaos2.gameobjects.Cannon;
 import com.grayherring.MeteorChaos2.gameobjects.GameObject;
 import com.grayherring.MeteorChaos2.gameobjects.GameObjectFactory;
 import com.grayherring.MeteorChaos2.gameobjects.Meteorite;
@@ -22,23 +23,23 @@ public class GameScreen extends AbstractScreen {
     Texture img;
     public ArrayList<Meteorite> meteorite;
     public ArrayList<Bullet> bullets;
+    public Cannon cannon;
     public OrthographicCamera camera;
     public int testNum =20;
     private final String TAG = "GameScreen";
 
     public static final float WORLD_WIDTH =640;
     public static final float WORLD_HEIGHT = 480;
-    GameController gameController;
+    GameControler gameController;
 
     public GameScreen(MeteorChaosGame game) {
         super(game);
-        gameController = new GameController(this);
+        gameController = new GameControler(this);
         Assets.instance.init();
         meteorite = new ArrayList();
         bullets = new ArrayList();
-        bullets.add(GameObjectFactory.CreateBullet(100, 100));
-        bullets.get(0).setUpdater(null);
-        bullets.add(GameObjectFactory.CreateBullet(12, 12));
+        cannon = new Cannon();
+
 
         for(int i = 0;i <testNum;i++){
             meteorite.add(GameObjectFactory.CreateMeteorite());
@@ -71,8 +72,9 @@ public class GameScreen extends AbstractScreen {
         for(int i = 0;i <bullets.size();i++){
             bullets.get(i).render(game.batch);
         }
+        cannon.render(game.batch);
 
-        game.font.draw(game.batch, "1234567890-=!@#$%^&*()_+", 200, 200);
+        game.font.draw(game.batch, "1234567890-=!@#$%^&*()_+", 5,WORLD_HEIGHT-5);
 
         game.batch.end();
 
@@ -102,7 +104,7 @@ public class GameScreen extends AbstractScreen {
     }
 
     public Rectangle collisonBox(GameObject gameObject){
-        return  new Rectangle(gameObject.position.x,gameObject.position.y,gameObject.bounds.width,gameObject.bounds.getHeight());
+        return  new Rectangle(gameObject.position.x,gameObject.position.y,gameObject.bounds.width,gameObject.bounds.height);
     }
 
     @Override

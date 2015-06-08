@@ -11,7 +11,6 @@ public abstract class GameObjectUpdater {
     public GameObjectUpdater(GameObject gameObject) {
         this.gameObject = gameObject;
     }
-
     public abstract void init();
     public  void setGameObject(GameObject gameObject){
         this.gameObject = gameObject;

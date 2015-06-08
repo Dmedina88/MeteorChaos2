@@ -10,11 +10,11 @@ import com.grayherring.MeteorChaos2.screen.GameScreen;
 /**
  * Created by David on 5/26/2015.
  */
-public class GameController  extends InputAdapter {
-    private  static  final String TAG = GameController.class.getName();
+public class GameControler extends InputAdapter {
+    private  static  final String TAG = GameControler.class.getName();
     private GameScreen gameScreen;
 
-    public GameController(GameScreen gameScreen) {
+    public GameControler(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
     }
 
@@ -39,6 +39,7 @@ public class GameController  extends InputAdapter {
         if(Gdx.input.justTouched()){
             Vector3 vector3 = new Vector3(Gdx.input.getX(),Gdx.input.getY(),0);
             vector3 = gameScreen.camera.unproject(vector3);
+            //http://stackoverflow.com/questions/11624207/libgdx-rotate-sprite-point-to-the-touch-position
             gameScreen.bullets.add(GameObjectFactory.CreateBullet(vector3.x, vector3.y));
         }
 
