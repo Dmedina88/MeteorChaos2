@@ -3,6 +3,7 @@ package com.grayherring.MeteorChaos2.gameobjects;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Disposable;
+import com.grayherring.MeteorChaos2.GameControler;
 import com.grayherring.MeteorChaos2.screen.GameScreen;
 import com.grayherring.MeteorChaos2.util.Assets;
 
@@ -53,4 +54,19 @@ public class Meteorite extends GameObject implements Disposable {
           textureAtlas.dispose();
     }
 
+
+    @Override
+    public void onCollision(GameControler gameController,GameObject otherObject) {
+        this.setDead(true);
+        otherObject.setDead(true);
+        //anamite exploson
+        //https://github.com/libgdx/libgdx/wiki/2D-Animation
+        //gamecontroler incress bullet/
+        //game controler incress core
+    }
+
+    @Override
+    public void onDeath() {
+        super.onDeath();
+    }
 }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.grayherring.MeteorChaos2.GameControler;
 import com.grayherring.MeteorChaos2.objectupdaters.GameObjectUpdater;
 
 public abstract class GameObject {
@@ -26,11 +27,19 @@ public abstract class GameObject {
     public GameObjectUpdater updater;
    // public OnCollisionListener onCollisionListener;
 
+    protected boolean dead;
 //
     protected TextureRegion textureRegion;
     protected TextureAtlas textureAtlas;
 
-    public float slope;
+    public boolean isDead() {
+        return dead;
+    }
+
+    public void setDead(boolean dead) {
+        this.dead = dead;
+    }
+
 
 
     public void setUpdater(GameObjectUpdater updater) {
@@ -48,13 +57,16 @@ public abstract class GameObject {
        // friction = new Vector2();
         acceleration = new Vector2();
         bounds = new Rectangle();
-
-        slope =0;
     }
-
 
 
     public abstract void render (SpriteBatch batch);
     public abstract void update (float deltaTime);
 
+    public void  onCollision( GameControler gameController,GameObject otherObject){
+        
+    }
+    public  void onDeath(){
+
+    }
 }
