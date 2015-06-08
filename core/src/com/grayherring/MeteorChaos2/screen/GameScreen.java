@@ -54,7 +54,7 @@ public class GameScreen extends AbstractScreen {
     public void render(float delta) {
         gameController.control();
 
-        Gdx.gl.glClearColor(1, 0, 0, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         for(int i = 0;i <meteorite.size();i++){
             meteorite.get(i).update(delta);

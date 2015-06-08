@@ -2,6 +2,7 @@ package com.grayherring.MeteorChaos2;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -20,7 +21,9 @@ public class MeteorChaosGame extends Game {
        //font = new BitmapFont(Gdx.files.internal(Constants.FONT));
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(Constants.FONT));
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		parameter.size = 12;
+		parameter.size = 14;
+		parameter.color =Color.WHITE;
+		parameter.borderColor = Color.BLACK;
 		 font = generator.generateFont(parameter); // font size 12 pixels
 		generator.dispose();
 

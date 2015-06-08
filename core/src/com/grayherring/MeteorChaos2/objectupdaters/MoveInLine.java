@@ -12,18 +12,11 @@ public class MoveInLine extends GameObjectUpdater {
         super(gameObject);
     }
     public static float SPEED = 100;
-
     @Override
     public void init() {
         float endPoint = MathUtils.random(0.0f, GameScreen.WORLD_WIDTH -gameObject.dimension.x );
-       // (gameObject.position.y/gameObject.position.x)-();
-        gameObject.slope = MathUtils.atan2(gameObject.position.y , gameObject.position.x - endPoint);
-        //gameObject.slope =  gameObject.slope / Constants.VIEWPORT_WIDTH;
         gameObject.velocity.set(endPoint-gameObject.position.x ,  gameObject.position.y).nor();
-
-
     }
-
     @Override
     public void update(float deltaTime) {
         gameObject.rotation = gameObject.rotation +(50*deltaTime);
