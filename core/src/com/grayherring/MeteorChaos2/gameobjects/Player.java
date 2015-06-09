@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  */
 public class Player extends GameObject {
     int lives = 3;
+    int ammo =10;
 //kinds of power ups//unfanite amo
     // big shots
     //lazer?
